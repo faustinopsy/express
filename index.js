@@ -1,28 +1,32 @@
-const http = require('http')
-const port = process.env.PORT || 3000
+const express = require('express')
 
-const server = http.createServer((req, res) =>{
-    //remover a querystring e a barra final e colocando tudo em minúscula
-    const path = req.url.replace(/\/(?:\?.*)?$/, '').toLocaleLowerCase()
-    switch(path){
-        case '':
-            res.writeHead(200,{ 'content-Type':'text/html'})
-            res.end('home')
-        break
-        case '/contato':
-            res.writeHead(200,{ 'content-Type':'text/html'})
-            res.end('contato')
-        break
-        case '/sobre':
-            res.writeHead(200,{ 'content-Type':'text/html'})
-            res.end('sobre')
-        break
-        default :
-            res.writeHead(404,{ 'content-Type':'text/html'})
-            res.end('error')
-        break
-    }
-   
+const app= express()
+
+const port = process.eventNames.PORT || 3000
+
+app.get('/',(req , res) => {
+    res.type('text/plain')
+    res.status(200)
+    res.send('Página inicial')
 })
 
-server.listen(port, ()=> console.log(`servidor iniciado na porta ${port};` + 'precione Ctrl+C para terminar...'))
+app.get('/sobre',(req , res) => {
+    res.type('text/plain')
+    res.status(200)
+    res.send('Página sobre')
+})
+
+app.use((req , res) => {
+    res.type('text/plain')
+    res.status(404)
+    res.send('404 - not found')
+})
+
+app.use((req , res) => {
+    res.type('text/plain')
+    res.status(500)
+    res.send('500 - Server Error')
+})
+
+app.listen(port, () => console.log(`Express inicado em http://localhost:${port}` 
++ ' Precione Ctrl+c para encerrar'))
