@@ -1,31 +1,27 @@
 const express = require('express')
+const { engine } = require('express-handlebars');
 
-const app= express()
+const app = express();
 
-const port = process.eventNames.PORT || 3000
+app.engine('handlebars', engine({
+    defaultLayout: 'main',
+}));
+app.set('view engine', 'handlebars')
 
-app.get('/',(req , res) => {
-    res.type('text/plain')
-    res.status(200)
-    res.send('Página inicial')
-})
+const port = process.env.PORT || 3000;
 
-app.get('/sobre',(req , res) => {
-    res.type('text/plain')
-    res.status(200)
-    res.send('Página sobre')
-})
+app.get('/',(req , res) => res.render('home'))
+
+app.get('/sobre',(req , res) => res.render('sobre'))
 
 app.use((req , res) => {
-    res.type('text/plain')
     res.status(404)
-    res.send('404 - not found')
+    res.render('404')
 })
 
 app.use((req , res) => {
-    res.type('text/plain')
     res.status(500)
-    res.send('500 - Server Error')
+    res.render('500')
 })
 
 app.listen(port, () => console.log(`Express inicado em http://localhost:${port}` 
