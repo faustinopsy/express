@@ -21,6 +21,11 @@ app.use(rotas.notfound)
 app.use(rotas.serverError)
 
 
-
-app.listen(port, () => console.log(`Express inicado em http://localhost:${port}` 
-+ ' Precione Ctrl+c para encerrar'))
+if(require.main === module){
+    app.listen(port, () => {
+    console.log(`Express inicado em http://localhost:${port}` + 
+    ' Precione Ctrl+c para encerrar')
+    })
+} else{
+    module.exports = app
+}
