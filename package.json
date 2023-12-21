@@ -22,7 +22,9 @@
   "homepage": "https://github.com/faustinopsy/express#readme",
   "dependencies": {
     "express": "^4.18.2",
-    "express-handlebars": "^7.1.2"
+    "express-handlebars": "^7.1.2",
+    "json": "^11.0.0",
+    "xml": "^1.0.1"
   },
   "devDependencies": {
     "jest": "^29.7.0",
